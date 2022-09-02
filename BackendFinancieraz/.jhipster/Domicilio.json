@@ -1,0 +1,57 @@
+{
+  "name": "Domicilio",
+  "fields": [
+    {
+      "fieldName": "calle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroExterior",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroInterior",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codePostal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "domicilioActual",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "manzana",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "andador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "edificio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaAntiguedad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codigoPostal",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "domicilio",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["BancoPoder"],
+  "skipClient": true,
+  "changelogDate": "20220901024813"
+}

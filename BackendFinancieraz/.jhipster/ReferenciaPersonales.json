@@ -1,0 +1,49 @@
+{
+  "name": "ReferenciaPersonales",
+  "fields": [
+    {
+      "fieldName": "idPersona",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoPaterno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoMaterno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "celular",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comentarios",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "referencia_personales",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["BancoPoder"],
+  "skipClient": true,
+  "changelogDate": "20220901024613"
+}

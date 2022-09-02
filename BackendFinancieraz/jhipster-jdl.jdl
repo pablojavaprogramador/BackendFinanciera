@@ -1,0 +1,59 @@
+
+application {
+  config {
+    baseName BancoPoder,
+    applicationType monolith,
+    packageName com.bancopoder,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Clientes {
+	nombre String,
+    apellidoPaterno String,
+    apellidoMaterno String,
+    fechaNacimiento String,
+    IdentificacionOCR String,
+    claveElector String,
+    telefono String,
+    celular String,
+    correoElectronico String
+}
+
+
+entity ReferenciaPersonales {
+	idPersona String,
+    nombre String,
+    apellidoPaterno String,
+    apellidoMaterno String,
+    fechaNacimiento String,
+    celular String,
+    telefono String,
+    comentarios String
+}
+
+entity Empleos {
+    ingresosComprobables String,
+    cargoPublico String,
+    familiarCargoPublico String,
+    calle String,
+    numeroExterior String,
+    codigoPostal String
+}
+
+
+entity Domicilio {
+	calle String,
+    numeroExterior String,
+    numeroInterior String,
+    codePostal String,
+    domicilioActual String,
+    manzana String,
+    andador String,
+    edificio String,
+    fechaAntiguedad String,
+    codigoPostal String
+}
