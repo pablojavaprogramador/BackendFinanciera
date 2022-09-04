@@ -133,6 +133,17 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        newUser.setClaveunica( (long) 152);
+        newUser.setNombre("Pablo Ernesto");
+        newUser.setApellidoMaterno("Apellido Materno");
+        newUser.setApellidoPaterno("Apellido Paterno");
+        newUser.setFechaNacimiento("fecha_nacimiento");
+        newUser.setIdentificacionOCR("identificacion_ocr");
+        newUser.setClaveElector("clave_elector");
+        newUser.setTelefono("telefono");
+        newUser.setCelular("celular");
+        newUser.setCorreoElectronico("CorreoElectronico");
+        
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         this.clearUserCaches(newUser);

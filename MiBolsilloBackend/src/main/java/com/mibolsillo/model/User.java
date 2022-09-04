@@ -1,7 +1,9 @@
-package com.mibolsillo.domain;
+package com.mibolsillo.model;
 
-import com.mibolsillo.config.Constants;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mibolsillo.utils.Constants;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -23,7 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,9 +1,10 @@
-package com.mibolsillo.service.dto;
+package com.mibolsillo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mibolsillo.config.Constants;
-import com.mibolsillo.domain.Authority;
-import com.mibolsillo.domain.User;
+import com.mibolsillo.model.Authority;
+import com.mibolsillo.model.User;
+import com.mibolsillo.utils.Constants;
+
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -87,10 +88,10 @@ public class AdminUserDTO {
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
-        this.createdBy = user.getCreatedBy();
-        this.createdDate = user.getCreatedDate();
-        this.lastModifiedBy = user.getLastModifiedBy();
-        this.lastModifiedDate = user.getLastModifiedDate();
+//        this.createdBy = user.getCreatedBy();
+//        this.createdDate = user.getCreatedDate();
+//        this.lastModifiedBy = user.getLastModifiedBy();
+//        this.lastModifiedDate = user.getLastModifiedDate();
         this.claveunica = user.getClaveunica();
         this.nombre = user.getNombre();
         this.apellidoPaterno= user.getApellidoPaterno();

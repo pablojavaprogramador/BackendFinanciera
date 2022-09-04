@@ -41,6 +41,38 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            
+              <column name="claveunica" type="bigint">
+                  <constraints nullable="true" />
+            </column>
+            <column name="nombre" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_paterno" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_materno" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_nacimiento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="identificacion_ocr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="clave_elector" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="telefono" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="celular" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="correo_electronico" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
         </createTable>
 
         <createTable tableName="jhi_authority">
