@@ -221,26 +221,5 @@ public class AdminUserDTO {
 				+ ", authorities=" + authorities + "]";
 	}
 
-//    // prettier-ignore
-//    @Override
-//    public String toString() {
-//        return "AdminUserDTO{" +
-//            "login='" + login + '\'' +
-//            ", firstName='" + firstName + '\'' +
-//            ", lastName='" + lastName + '\'' +
-//            ", email='" + email + '\'' +
-//            ", imageUrl='" + imageUrl + '\'' +
-//            ", activated=" + activated +
-//            ", langKey='" + langKey + '\'' +
-//            ", createdBy=" + createdBy +
-//            ", createdDate=" + createdDate +
-//            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-//            ", lastModifiedDate=" + lastModifiedDate +
-//            ", authorities=" + authorities +
-//            "}";
-//    }
-    
-    
-    
-    
+
 }

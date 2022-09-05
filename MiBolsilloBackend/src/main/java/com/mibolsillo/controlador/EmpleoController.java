@@ -38,53 +38,53 @@ public class EmpleoController {
 	}
 	
 	
-	@RequestMapping(value = "/empleo/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/empleos/{id}", method = RequestMethod.GET)
 	Optional<Empleos> consultarempleo(@PathVariable Long id) {
 		return empleoService.findById(id);
 	}
 
 	
-	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/empleo", method = RequestMethod.POST)
-	public String agregarempleo(@RequestBody Empleos empleo) {
+	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/empleos", method = RequestMethod.POST)
+	public void agregarempleo(@RequestBody Empleos empleo) {
 		Empleos salvarempleo = empleoService.save(empleo);
 
-		return "{\"mensaje\":\"Articulo Guardado Correctamente\"}";
+		
 	}
 
-	@RequestMapping(value = "/empleo", method = RequestMethod.PUT)
+	@RequestMapping(value = "/empleos", method = RequestMethod.PUT)
 	public String actualizarempleo(@RequestBody Empleos empleo) {
 		Empleos actualizarempleo= empleoService.save(empleo);
 		 	return "{\"mensaje\":\"empleo Actualizado Correctamente\"}";
 	}
 
-//	@RequestMapping(value = "/empleo", method = RequestMethod.DELETE)
-//	Map<String, String> eliminarempleo(@RequestParam Long id) {
-//		Map<String, String> status = new HashMap<>();
-//	        Optional<Empleos> articulo = empleoService.findById(id);
-//	        if(articulo.isPresent()) {
-//	        	empleoService.delete(articulo.get());
-//	            status.put("Estatus", "Se elimino el empleo correctamente");
-//	        }
-//	        else {
-//	            status.put("Estatus", "El empleo no se ha encontrado");
-//	        } 
-//		return status;
-//	}
+	@RequestMapping(value = "/empleos/eliminar", method = RequestMethod.DELETE)
+	Map<String, String> eliminarempleo(@RequestParam Long id) {
+		Map<String, String> status = new HashMap<>();
+	        Optional<Empleos> articulo = empleoService.findById(id);
+	        if(articulo.isPresent()) {
+	        	empleoService.delete(articulo.get());
+	            status.put("Estatus", "Se elimino el empleo correctamente");
+	        }
+	        else {
+	            status.put("Estatus", "El empleo no se ha encontrado");
+	        } 
+		return status;
+	}
 
 
 
-	@RequestMapping(value = "/empleo", method = RequestMethod.GET)
+	@RequestMapping(value = "/empleos", method = RequestMethod.GET)
 	public List<Empleos> consultaempleos() {
 		return empleoService.findAll();
 	}
 
-	@RequestMapping(value = "/empleo", method = RequestMethod.POST)
+	@RequestMapping(value = "/empleoslista", method = RequestMethod.POST)
 	public String agregarempleo(@RequestBody List<Empleos> listaempleo) {
 		empleoService.saveAll(listaempleo);
 		return "SUCCESS";
 	}
 
-	@RequestMapping(value = "/empleo", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/empleos", method = RequestMethod.DELETE)
 	public String eliminarAllempleos() {
 		empleoService.deleteAll();
 		return "SUCCESS";

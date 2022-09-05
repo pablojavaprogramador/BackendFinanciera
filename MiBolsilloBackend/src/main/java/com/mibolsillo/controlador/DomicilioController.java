@@ -43,7 +43,7 @@ public class DomicilioController {
 	}
 
 	
-	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/domicilio", method = RequestMethod.POST)
+	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/domicilios", method = RequestMethod.POST)
 	public String agregarDomicilio(@RequestBody Domicilio domicilio) {
 		Domicilio salvarDomicilio = domicilioService.save(domicilio);
 
@@ -81,7 +81,7 @@ public class DomicilioController {
 		return domicilioService.findAll();
 	}
 
-	@RequestMapping(value = "/domicilios", method = RequestMethod.POST)
+	@RequestMapping(value = "/domiciliosmuchos", method = RequestMethod.POST)
 	public String agregarDomicilio(@RequestBody List<Domicilio> listaDomicilio) {
 		domicilioService.saveAll(listaDomicilio);
 		return "SUCCESS";

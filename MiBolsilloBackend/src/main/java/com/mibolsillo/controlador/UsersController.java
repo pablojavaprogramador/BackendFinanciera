@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.mibolsillo.model.Domicilio;
+import com.mibolsillo.model.ManagedUserVM;
 import com.mibolsillo.model.User;
 import com.mibolsillo.model.User;
 import com.mibolsillo.service.DomicilioService;
@@ -41,11 +45,11 @@ public class UsersController {
 
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/usuarios", method = RequestMethod.POST)
-	public String agregarUsers(@RequestBody User user) {
-		User salvarDomicilio = userService.save(user);
-
+	public String agregarUsers(@Valid @RequestBody ManagedUserVM managedUserVM) {
+		System.out.println(managedUserVM.toString());
+		  User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
 		return "{\"mensaje\":\"Users Guardada Correctamente\"}";
-	}
+	}                                                                                                                                                                                    
 
 	@RequestMapping(value = "/usuarios", method = RequestMethod.PUT)
 	public String actualizarDomicilio(@RequestBody User user) {
@@ -75,7 +79,7 @@ public class UsersController {
 		return userService.findAll();
 	}
 
-	@RequestMapping(value = "/usuarios", method = RequestMethod.POST)
+	@RequestMapping(value = "/usuariosagregar", method = RequestMethod.POST)
 	public String agregarUsers(@RequestBody List<User> listaUsers) {
 		userService.saveAll(listaUsers);
 		return "SUCCESS";
