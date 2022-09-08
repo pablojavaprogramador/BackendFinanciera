@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bolsillo.model.error.BadRequestAlertException;
+import com.bolsillo.model.error.ModeloNotFoundException;
 import com.mibolsillo.model.Domicilio;
+import com.mibolsillo.model.Empleos;
 import com.mibolsillo.model.ReferenciaPersonales;
+import com.mibolsillo.model.RespuestaOk;
 import com.mibolsillo.service.DomicilioService;
 import com.mibolsillo.service.ReferenciasPersonales;
 
@@ -33,30 +39,63 @@ public class ReferenciasPersonalesController {
 
 	
 	@RequestMapping(value = "/referencia-personales/{id}", method = RequestMethod.GET)
-	Optional<ReferenciaPersonales> consultarReferencia(@PathVariable Long id) {
-		return referenciasService.findById(id);
+	ResponseEntity<ReferenciaPersonales> consultarReferencia(@PathVariable Long id) {
+		ReferenciaPersonales referenciaPersonales=referenciasService.findById(id);
+		
+		
+		if (id == null ) {
+
+			throw new ModeloNotFoundException("ID No encontrado: " + id);
+		}
+		
+		boolean referencia = referenciasService.existsById(id);
+
+		if (referencia==false ) {
+
+			throw new ModeloNotFoundException("ID No encontrado: " + id);
+		}
+		
+		
+		return new ResponseEntity<ReferenciaPersonales>(referenciaPersonales,HttpStatus.OK) ;
 	}
 
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/referencia-personales", method = RequestMethod.POST)
-	public String agregarReferencia(@RequestBody ReferenciaPersonales referencia) {
-		ReferenciaPersonales salvarDomicilio = referenciasService.save(referencia);
+	public ResponseEntity<RespuestaOk> agregarReferencia(@RequestBody ReferenciaPersonales referencia) {
+		RespuestaOk respuestaOk = referenciasService.save(referencia);
 
-		return "{\"mensaje\":\"Referencia Guardada Correctamente\"}";
+		return new ResponseEntity<RespuestaOk>(respuestaOk,HttpStatus.OK);
 	}
 
+	
+	
+	
+	
 	@RequestMapping(value = "/referencia-personales", method = RequestMethod.PUT)
-	public String actualizarDomicilio(@RequestBody ReferenciaPersonales referencia) {
-		ReferenciaPersonales actualizarDomicilio= referenciasService.save(referencia);
-		 	return "{\"mensaje\":\"Referencia  Actualizado Correctamente\"}";
+	public ResponseEntity<RespuestaOk> actualizarDomicilio(@RequestBody ReferenciaPersonales referencia) {
+		
+		if (referencia.getId() == null) {
+            throw new BadRequestAlertException("Id Invalido");
+        }
+  
+        if (referenciasService.existsById(referencia.getId())==false) {
+        	throw new BadRequestAlertException("No existe el id a actualizar");
+        }
+        
+        
+		RespuestaOk actualizarDomicilio= referenciasService.actualizar(referencia);
+		
+		 	return new ResponseEntity<RespuestaOk>(actualizarDomicilio,HttpStatus.OK);
 	}
 
+	
 	@RequestMapping(value = "/referencia-personales", method = RequestMethod.DELETE)
 	Map<String, String> eliminarReferenciaPersonal(@RequestParam Long id) {
 		Map<String, String> status = new HashMap<>();
-	        Optional<ReferenciaPersonales> articulo = referenciasService.findById(id);
-	        if(articulo.isPresent()) {
-	        	referenciasService.delete(articulo.get());
+	        ReferenciaPersonales referencia = referenciasService.findById(id);
+	    	boolean referenciaid = referenciasService.existsById(id);
+	        if(referenciaid==true) {
+	        	referenciasService.delete(referencia);
 	            status.put("Estatus", "Se elimino el domicilio correctamente");
 	        }
 	        else {
@@ -68,18 +107,20 @@ public class ReferenciasPersonalesController {
 
 
 
-	@RequestMapping(value = "/referencia", method = RequestMethod.GET)
-	public List<ReferenciaPersonales> consultaReferencia() {
-		return referenciasService.findAll();
+	@RequestMapping(value = "/referencia-personales", method = RequestMethod.GET)
+	public ResponseEntity<List<ReferenciaPersonales>> consultaReferencia() {
+		List<ReferenciaPersonales> referencias = referenciasService.findAll();
+		return new ResponseEntity<List<ReferenciaPersonales>>(referencias,HttpStatus.OK);
+	}
+	
+
+	@RequestMapping(value = "/referencia-personales", method = RequestMethod.POST)
+	public ResponseEntity<RespuestaOk>salvarReferencias(@RequestBody List<ReferenciaPersonales> listaReferencia) {
+		RespuestaOk referencias=referenciasService.saveAll(listaReferencia);
+		return new ResponseEntity<RespuestaOk>(referencias,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/referencia", method = RequestMethod.POST)
-	public String agregarReferencia(@RequestBody List<ReferenciaPersonales> listaReferencia) {
-		referenciasService.saveAll(listaReferencia);
-		return "SUCCESS";
-	}
-
-	@RequestMapping(value = "/domicilio", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/referencia-personales/eliminar", method = RequestMethod.DELETE)
 	public String eliminarAllDomicilios() {
 		referenciasService.deleteAll();
 		return "SUCCESS";

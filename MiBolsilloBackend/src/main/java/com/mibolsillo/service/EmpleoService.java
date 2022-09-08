@@ -5,16 +5,18 @@ import java.util.Optional;
 
 import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.Empleos;
+import com.mibolsillo.model.RespuestaOk;
 
 
 
 
 public interface EmpleoService {
 
-	Optional<Empleos> findById(Long id);
+	Empleos findById(Long id);
 
 
-	Empleos save(Empleos empleo);
+	RespuestaOk save(Empleos empleo);
+	RespuestaOk actualizar(Empleos empleo);
 
 	List<Empleos> findAll();
 
@@ -24,6 +26,9 @@ public interface EmpleoService {
 
 
 	void delete(Empleos empleos);
+
+
+	boolean existsById(Long id);
 
 	
 

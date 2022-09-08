@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.ReferenciaPersonales;
+import com.mibolsillo.model.RespuestaOk;
 
 
 
@@ -12,11 +13,11 @@ import com.mibolsillo.model.ReferenciaPersonales;
 public interface ReferenciasPersonales {
 
 	
-	Optional<ReferenciaPersonales> findById(Long id);
+	ReferenciaPersonales findById(Long id);
 
 
 
-	ReferenciaPersonales save(ReferenciaPersonales referencia);
+	RespuestaOk save(ReferenciaPersonales referencia);
 
 
 
@@ -28,11 +29,20 @@ public interface ReferenciasPersonales {
 
 
 
-	void saveAll(List<ReferenciaPersonales> listaReferencia);
+	RespuestaOk saveAll(List<ReferenciaPersonales> listaReferencia);
 
 
 
 	void deleteAll();
+
+
+
+	boolean existsById(Long id);
+
+
+
+	RespuestaOk actualizar(ReferenciaPersonales referencia);
+	
 
 	
 

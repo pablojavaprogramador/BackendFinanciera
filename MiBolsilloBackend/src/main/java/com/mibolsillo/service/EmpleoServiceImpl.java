@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.Empleos;
+import com.mibolsillo.model.RespuestaOk;
 import com.mibolsillo.repository.EmpleosRepository;
 
 
@@ -19,15 +20,39 @@ public class EmpleoServiceImpl  implements EmpleoService{
 	EmpleosRepository repositoryEmpleo;
 	
 	@Override
-	public Optional<Empleos> findById(Long id) {
-		repositoryEmpleo.findById(id);
-		return Optional.empty();
+	public Empleos findById(Long id) {
+		Empleos empleos=repositoryEmpleo.findById(id).orElse(new Empleos());
+		return empleos;
 	}
 
 	@Override
-	public Empleos save(Empleos empleo) {
-		repositoryEmpleo.save(empleo);
-		return null;
+	public RespuestaOk save(Empleos empleo) {
+		
+		try {
+			repositoryEmpleo.save(empleo);
+			}catch(Exception e){
+				
+			}
+			RespuestaOk respuesta = new RespuestaOk();
+			respuesta.setEstatus("OK");
+			respuesta.setMensaje("Empleo Guardado Correctamente");
+		
+		return respuesta;
+	}
+	
+	@Override
+	public RespuestaOk actualizar(Empleos empleo) {
+		
+		try {
+			repositoryEmpleo.save(empleo);
+			}catch(Exception e){
+				
+			}
+			RespuestaOk respuesta = new RespuestaOk();
+			respuesta.setEstatus("OK");
+			respuesta.setMensaje("Empleo Actualizado Correctamente");
+		
+		return respuesta;
 	}
 
 	@Override
@@ -53,6 +78,15 @@ public class EmpleoServiceImpl  implements EmpleoService{
 	public void delete(Empleos empleos) {
 	repositoryEmpleo.delete(empleos);
 		
+	}
+
+	@Override
+	public boolean existsById(Long id) {
+		boolean existeEmpleo = repositoryEmpleo.existsById(id);
+		if(existeEmpleo==true) {
+			return true;
+		}
+		return false;
 	}
 
 }

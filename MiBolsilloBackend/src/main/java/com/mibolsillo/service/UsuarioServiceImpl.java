@@ -7,37 +7,42 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.mibolsillo.model.RespuestaOk;
 
 import com.mibolsillo.dto.AdminUserDTO;
 import com.mibolsillo.model.Authority;
-
-
 import com.mibolsillo.model.User;
 import com.mibolsillo.repository.AuthorityRepository;
-import com.mibolsillo.repository.UserRepository;
+import com.mibolsillo.repository.UsuarioRepository;
 import com.mibolsillo.utils.AuthoritiesConstants;
 
-
-
 @Service
-public class  UserServiceImpl implements  UserService{
+public  class  UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
-	private UserRepository repositorioUser;
+	private UsuarioRepository repositorioUser;
 	@Autowired
 	private AuthorityRepository authorityRepository;
 	
 	@Override
-	public Optional<User> findById(Long id) {
+	public com.google.common.base.Optional<User> findById(Long id) {
 		repositorioUser.findById(id);
-		return Optional.empty();
+		return null;
 	}
 
 	@Override
-	public User save(User referencia) {
-		repositorioUser.save(referencia);
-		return null;
+	public RespuestaOk save(User referencia) {
+		
+		try {
+			repositorioUser.save(referencia);
+		} catch (Exception ex) {
+
+		}
+		RespuestaOk respuesta = new RespuestaOk();
+		respuesta.setEstatus("OK");
+		respuesta.setMensaje("Referencia Guardado Correctamente");
+		return respuesta;
+		
 	}
 
 	@Override
@@ -82,7 +87,7 @@ public class  UserServiceImpl implements  UserService{
 	}
 
 	@Override
-	public User registerUser(AdminUserDTO userDTO, String password) {
+	public RespuestaOk registerUser(AdminUserDTO userDTO, String password) {
 		 User newUser = new User();
 	        String encryptedPassword = password.toString();
 	        newUser.setLogin(userDTO.getLogin().toLowerCase());
@@ -108,7 +113,13 @@ public class  UserServiceImpl implements  UserService{
 	        repositorioUser.save(newUser);
 	        //this.clearUserCaches(newUser);
 	     //   log.debug("Created Information for User: {}", newUser);
-	        return newUser;
+	   
+			RespuestaOk respuesta = new RespuestaOk();
+			respuesta.setEstatus("OK");
+			respuesta.setMensaje("Referencia Guardado Correctamente");
+			return respuesta;
+			
+	      
 	}
 
 	@Override
@@ -141,7 +152,28 @@ public class  UserServiceImpl implements  UserService{
 		
 	}
 
+
+//	@Override
+//	public boolean existsById(Long id) {
+//		boolean referenciaid = repositorioUser.existsById(id);
+//		if (referenciaid == true) {
+//
+//			return true;
+//		}
+//		return false;
+//	}
+
 	
+
+	@Override
+	public boolean buscarUsuario(String usuario) {
+		boolean referenciaid = repositorioUser.buscarUsuario(usuario);
+		if (referenciaid == true) {
+
+			return true;
+		}
+		return false;
+	}
 
 
 }

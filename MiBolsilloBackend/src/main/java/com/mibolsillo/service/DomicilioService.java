@@ -4,25 +4,30 @@ import java.util.List;
 import java.util.Optional;
 
 import com.mibolsillo.model.Domicilio;
+import com.mibolsillo.model.RespuestaOk;
 
 
 
 
 public interface DomicilioService {
 
-	Optional<Domicilio> findById(Long id);
+	Domicilio findById(Long id);
 
 
-	Domicilio save(Domicilio articulo);
+	RespuestaOk save(Domicilio articulo);
+	RespuestaOk update(Domicilio articulo);
 
 	List<Domicilio> findAll();
 
 	void deleteAll();
 
-	void saveAll(List<Domicilio> listaArticulos);
+	RespuestaOk saveAll(List<Domicilio> listaArticulos);
 
 
 	void delete(Domicilio domicilio);
+
+
+	boolean existsById(Long id);
 
 	
 

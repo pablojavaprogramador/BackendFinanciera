@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bolsillo.model.error.BadRequestAlertException;
+import com.bolsillo.model.error.ModeloNotFoundException;
+import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.Empleos;
+import com.mibolsillo.model.RespuestaOk;
 import com.mibolsillo.service.EmpleoService;
 
 /**
@@ -30,39 +36,54 @@ public class EmpleoController {
 	private EmpleoService empleoService;
 
 	
-
-	@GetMapping("infoempleo")
-	public String info () {
-		return("Hola");
-		
-	}
-	
-	
 	@RequestMapping(value = "/empleos/{id}", method = RequestMethod.GET)
-	Optional<Empleos> consultarempleo(@PathVariable Long id) {
-		return empleoService.findById(id);
+	ResponseEntity<Empleos> consultarempleo(@PathVariable Long id) {
+		Empleos respuesta = empleoService.findById(id);
+		if (id == null ) {
+
+			throw new ModeloNotFoundException("ID No encontrado: " + id);
+		}
+		
+		boolean domicilio = empleoService.existsById(id);
+
+		if (domicilio==false ) {
+
+			throw new ModeloNotFoundException("ID No encontrado: " + id);
+		}
+		return new ResponseEntity<Empleos>(respuesta,HttpStatus.OK);
 	}
 
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/empleos", method = RequestMethod.POST)
-	public void agregarempleo(@RequestBody Empleos empleo) {
-		Empleos salvarempleo = empleoService.save(empleo);
+	public ResponseEntity<RespuestaOk> agregarempleo(@RequestBody Empleos empleo) {
+		RespuestaOk crearempleo= empleoService.save(empleo);
+		return new ResponseEntity<RespuestaOk>(crearempleo,HttpStatus.OK);
 
-		
 	}
 
 	@RequestMapping(value = "/empleos", method = RequestMethod.PUT)
-	public String actualizarempleo(@RequestBody Empleos empleo) {
-		Empleos actualizarempleo= empleoService.save(empleo);
-		 	return "{\"mensaje\":\"empleo Actualizado Correctamente\"}";
+	public ResponseEntity<RespuestaOk> actualizarempleo(@RequestBody Empleos empleo) {
+		
+		  if (empleo.getId() == null) {
+	            throw new BadRequestAlertException("Id Invalido");
+	        }
+	  
+	        if (empleoService.existsById(empleo.getId())==false) {
+	        	throw new BadRequestAlertException("No existe el id a actualizar");
+	        }
+	        
+		RespuestaOk actualizarempleo= empleoService.actualizar(empleo);
+		
+		return new ResponseEntity<RespuestaOk>(actualizarempleo,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/empleos/eliminar", method = RequestMethod.DELETE)
 	Map<String, String> eliminarempleo(@RequestParam Long id) {
 		Map<String, String> status = new HashMap<>();
-	        Optional<Empleos> articulo = empleoService.findById(id);
-	        if(articulo.isPresent()) {
-	        	empleoService.delete(articulo.get());
+	       Empleos empleo = empleoService.findById(id);
+	       boolean existe = empleoService.existsById(id);
+	        if(existe==true) {
+	        	empleoService.delete(empleo);
 	            status.put("Estatus", "Se elimino el empleo correctamente");
 	        }
 	        else {

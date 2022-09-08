@@ -196,4 +196,8 @@ public class ReferenciaPersonales implements Serializable {
             ", comentarios='" + getComentarios() + "'" +
             "}";
     }
+
+
+
+	
 }

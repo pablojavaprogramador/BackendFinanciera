@@ -2,31 +2,36 @@ package com.mibolsillo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mibolsillo.model.Cupones;
 import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.ReferenciaPersonales;
 import com.mibolsillo.model.RespuestaOk;
+import com.mibolsillo.model.SolicitudCredito;
+import com.mibolsillo.model.TarjetasdeRegalo;
+import com.mibolsillo.repository.CuponesRepository;
 import com.mibolsillo.repository.ReferenciaPersonalesRepository;
+import com.mibolsillo.repository.SolicitudCreditoRepository;
+import com.mibolsillo.repository.TarjetasdeRegaloRepository;
 
 @Service
-public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
+public class CuponesServiceImpl implements CuponesService {
 
 	@Autowired
-	private ReferenciaPersonalesRepository referenciaRepositorio;
+	private CuponesRepository cuponesRepository;
 
 	@Override
-	public ReferenciaPersonales findById(Long id) {
-		ReferenciaPersonales referencia = referenciaRepositorio.findById(id).orElse(new ReferenciaPersonales());
-		return referencia;
+	public Cupones findById(Long id) {
+		Cupones solicitud = cuponesRepository.findById(id).orElse(new Cupones());
+		return solicitud;
 	}
 
 	@Override
-	public RespuestaOk save(ReferenciaPersonales referencia) {
+	public RespuestaOk save(Cupones cupones) {
 		try {
-			referenciaRepositorio.save(referencia);
+			cuponesRepository.save(cupones);
 		} catch (Exception ex) {
 
 		}
@@ -35,11 +40,11 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		respuesta.setMensaje("Referencia Guardado Correctamente");
 		return respuesta;
 	}
-	
+
 	@Override
-	public RespuestaOk actualizar(ReferenciaPersonales referencia) {
+	public RespuestaOk actualizar(Cupones cupones) {
 		try {
-			referenciaRepositorio.save(referencia);
+			cuponesRepository.save(cupones);
 		} catch (Exception ex) {
 
 		}
@@ -49,22 +54,20 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		return respuesta;
 	}
 
-	
-
 	@Override
-	public void delete(ReferenciaPersonales referenciasPersonales) {
-		referenciaRepositorio.delete(referenciasPersonales);
+	public void delete(Cupones cupones) {
+		cuponesRepository.delete(cupones);
 
 	}
 
 	@Override
-	public List<ReferenciaPersonales> findAll() {
-		return referenciaRepositorio.findAll();
+	public List<Cupones> findAll() {
+		return cuponesRepository.findAll();
 	}
 
 	@Override
-	public RespuestaOk saveAll(List<ReferenciaPersonales> listaReferencia) {
-		referenciaRepositorio.saveAll(listaReferencia);
+	public RespuestaOk saveAll(List<Cupones> cupones) {
+		cuponesRepository.saveAll(cupones);
 
 		RespuestaOk respuesta = new RespuestaOk();
 		respuesta.setEstatus("OK");
@@ -74,13 +77,13 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 
 	@Override
 	public void deleteAll() {
-		referenciaRepositorio.deleteAll();
+		cuponesRepository.deleteAll();
 
 	}
 
 	@Override
 	public boolean existsById(Long id) {
-		boolean referenciaid = referenciaRepositorio.existsById(id);
+		boolean referenciaid = cuponesRepository.existsById(id);
 		if (referenciaid == true) {
 
 			return true;

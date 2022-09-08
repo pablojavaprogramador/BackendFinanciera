@@ -1,4 +1,4 @@
-package com.mibolsillo.model;
+package com.bolsillo.model.error;
 
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -2,31 +2,35 @@ package com.mibolsillo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mibolsillo.model.Cupones;
 import com.mibolsillo.model.Domicilio;
+import com.mibolsillo.model.PagodeServicios;
+import com.mibolsillo.model.Producto;
 import com.mibolsillo.model.ReferenciaPersonales;
 import com.mibolsillo.model.RespuestaOk;
-import com.mibolsillo.repository.ReferenciaPersonalesRepository;
+import com.mibolsillo.model.SolicitudCredito;
+import com.mibolsillo.model.TarjetasdeRegalo;
+import com.mibolsillo.repository.PagodeServiciosRepository;
 
 @Service
-public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
+public class PagosServiceImpl implements PagosService {
 
 	@Autowired
-	private ReferenciaPersonalesRepository referenciaRepositorio;
+	private PagodeServiciosRepository pagoServiciosRepository;
 
 	@Override
-	public ReferenciaPersonales findById(Long id) {
-		ReferenciaPersonales referencia = referenciaRepositorio.findById(id).orElse(new ReferenciaPersonales());
-		return referencia;
+	public PagodeServicios findById(Long id) {
+		PagodeServicios solicitud = pagoServiciosRepository.findById(id).orElse(new PagodeServicios());
+		return null;
 	}
 
 	@Override
-	public RespuestaOk save(ReferenciaPersonales referencia) {
+	public RespuestaOk save(PagodeServicios pago) {
 		try {
-			referenciaRepositorio.save(referencia);
+			pagoServiciosRepository.save(pago);
 		} catch (Exception ex) {
 
 		}
@@ -35,11 +39,11 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		respuesta.setMensaje("Referencia Guardado Correctamente");
 		return respuesta;
 	}
-	
+
 	@Override
-	public RespuestaOk actualizar(ReferenciaPersonales referencia) {
+	public RespuestaOk actualizar(PagodeServicios pago) {
 		try {
-			referenciaRepositorio.save(referencia);
+			pagoServiciosRepository.save(pago);
 		} catch (Exception ex) {
 
 		}
@@ -49,22 +53,20 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		return respuesta;
 	}
 
-	
-
 	@Override
-	public void delete(ReferenciaPersonales referenciasPersonales) {
-		referenciaRepositorio.delete(referenciasPersonales);
+	public void delete(PagodeServicios pago) {
+		pagoServiciosRepository.delete(pago);
 
 	}
 
 	@Override
-	public List<ReferenciaPersonales> findAll() {
-		return referenciaRepositorio.findAll();
+	public List<PagodeServicios> findAll() {
+		return pagoServiciosRepository.findAll();
 	}
 
 	@Override
-	public RespuestaOk saveAll(List<ReferenciaPersonales> listaReferencia) {
-		referenciaRepositorio.saveAll(listaReferencia);
+	public RespuestaOk saveAll(List<PagodeServicios> pago) {
+		pagoServiciosRepository.saveAll(pago);
 
 		RespuestaOk respuesta = new RespuestaOk();
 		respuesta.setEstatus("OK");
@@ -74,13 +76,13 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 
 	@Override
 	public void deleteAll() {
-		referenciaRepositorio.deleteAll();
+		pagoServiciosRepository.deleteAll();
 
 	}
 
 	@Override
 	public boolean existsById(Long id) {
-		boolean referenciaid = referenciaRepositorio.existsById(id);
+		boolean referenciaid = pagoServiciosRepository.existsById(id);
 		if (referenciaid == true) {
 
 			return true;

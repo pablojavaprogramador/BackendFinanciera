@@ -2,31 +2,31 @@ package com.mibolsillo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mibolsillo.model.Domicilio;
 import com.mibolsillo.model.ReferenciaPersonales;
 import com.mibolsillo.model.RespuestaOk;
+import com.mibolsillo.model.TarjetasdeRegalo;
 import com.mibolsillo.repository.ReferenciaPersonalesRepository;
+import com.mibolsillo.repository.TarjetasdeRegaloRepository;
 
 @Service
-public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
+public class TarjetasdeRegaloServiceImpl implements TarjetasdeRegaloService {
 
 	@Autowired
-	private ReferenciaPersonalesRepository referenciaRepositorio;
+	private TarjetasdeRegaloRepository tarjetasdeRegalo;
 
 	@Override
-	public ReferenciaPersonales findById(Long id) {
-		ReferenciaPersonales referencia = referenciaRepositorio.findById(id).orElse(new ReferenciaPersonales());
+	public TarjetasdeRegalo findById(Long id) {
+		TarjetasdeRegalo referencia = tarjetasdeRegalo.findById(id).orElse(new TarjetasdeRegalo());
 		return referencia;
 	}
 
 	@Override
-	public RespuestaOk save(ReferenciaPersonales referencia) {
+	public RespuestaOk save(TarjetasdeRegalo tarjetasRegalo) {
 		try {
-			referenciaRepositorio.save(referencia);
+			tarjetasdeRegalo.save(tarjetasRegalo);
 		} catch (Exception ex) {
 
 		}
@@ -35,11 +35,11 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		respuesta.setMensaje("Referencia Guardado Correctamente");
 		return respuesta;
 	}
-	
+
 	@Override
-	public RespuestaOk actualizar(ReferenciaPersonales referencia) {
+	public RespuestaOk actualizar(TarjetasdeRegalo tarjetasRegalo) {
 		try {
-			referenciaRepositorio.save(referencia);
+			tarjetasdeRegalo.save(tarjetasRegalo);
 		} catch (Exception ex) {
 
 		}
@@ -49,22 +49,20 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 		return respuesta;
 	}
 
-	
-
 	@Override
-	public void delete(ReferenciaPersonales referenciasPersonales) {
-		referenciaRepositorio.delete(referenciasPersonales);
+	public void delete(TarjetasdeRegalo tarjetasRegalo) {
+		tarjetasdeRegalo.delete(tarjetasRegalo);
 
 	}
 
 	@Override
-	public List<ReferenciaPersonales> findAll() {
-		return referenciaRepositorio.findAll();
+	public List<TarjetasdeRegalo> findAll() {
+		return tarjetasdeRegalo.findAll();
 	}
 
 	@Override
-	public RespuestaOk saveAll(List<ReferenciaPersonales> listaReferencia) {
-		referenciaRepositorio.saveAll(listaReferencia);
+	public RespuestaOk saveAll(List<TarjetasdeRegalo> tarjetasRegalo) {
+		tarjetasdeRegalo.saveAll(tarjetasRegalo);
 
 		RespuestaOk respuesta = new RespuestaOk();
 		respuesta.setEstatus("OK");
@@ -74,13 +72,13 @@ public class ReferenciasPersonalesImpl implements ReferenciasPersonales {
 
 	@Override
 	public void deleteAll() {
-		referenciaRepositorio.deleteAll();
+		tarjetasdeRegalo.deleteAll();
 
 	}
 
 	@Override
 	public boolean existsById(Long id) {
-		boolean referenciaid = referenciaRepositorio.existsById(id);
+		boolean referenciaid = tarjetasdeRegalo.existsById(id);
 		if (referenciaid == true) {
 
 			return true;
