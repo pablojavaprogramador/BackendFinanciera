@@ -70,7 +70,7 @@ public class DomicilioController {
 	public ResponseEntity<RespuestaOk> agregarDomicilio(@RequestBody  Domicilio domicilio) {
 		RespuestaOk respuestadomicilio = domicilioService.save(domicilio);
 	
-		return new ResponseEntity<RespuestaOk>(respuestadomicilio,HttpStatus.OK);
+		return new ResponseEntity<RespuestaOk>(respuestadomicilio,HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/domicilios", method = RequestMethod.PUT)

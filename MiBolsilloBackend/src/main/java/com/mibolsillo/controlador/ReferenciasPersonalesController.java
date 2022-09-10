@@ -114,7 +114,7 @@ public class ReferenciasPersonalesController {
 	}
 	
 
-	@RequestMapping(value = "/referencia-personales", method = RequestMethod.POST)
+	@RequestMapping(value = "/referencia-personales/lote", method = RequestMethod.POST)
 	public ResponseEntity<RespuestaOk>salvarReferencias(@RequestBody List<ReferenciaPersonales> listaReferencia) {
 		RespuestaOk referencias=referenciasService.saveAll(listaReferencia);
 		return new ResponseEntity<RespuestaOk>(referencias,HttpStatus.OK);

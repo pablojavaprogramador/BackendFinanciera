@@ -41,8 +41,9 @@ public class UsuariosController {
 
 	
 	@RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
-	Optional<User> consultarUsers(@PathVariable Long id) {
-		return userService.findById(id);
+	ResponseEntity<java.util.Optional<User>> consultarUsers(@PathVariable Long id) {
+		java.util.Optional<User> pecp= userService.findById(id);
+		return new  ResponseEntity<java.util.Optional<User>>(pecp,HttpStatus.OK);
 	}
 
 	
@@ -75,14 +76,14 @@ public class UsuariosController {
 	@RequestMapping(value = "/eliminarAllUsuarios", method = RequestMethod.DELETE)
 	Map<String, String> eliminarUsers(@RequestParam Long id) {
 		Map<String, String> status = new HashMap<>();
-	        Optional<User> articulo = userService.findById(id);
-	        if(articulo.isPresent()) {
-	        	userService.delete(articulo.get());
-	            status.put("Estatus", "Se elimino el domicilio correctamente");
-	        }
-	        else {
-	            status.put("Estatus", "El Domicilio no se ha encontrado");
-	        } 
+	 //       Optional<User> articulo = userService.findById(id);
+	  //      if(articulo.isPresent()) {
+	   //     	userService.delete(articulo.get());
+	    //        status.put("Estatus", "Se elimino el domicilio correctamente");
+	     //   }
+	      //  else {
+	       //     status.put("Estatus", "El Domicilio no se ha encontrado");
+	       // } 
 		return status;
 	}
 

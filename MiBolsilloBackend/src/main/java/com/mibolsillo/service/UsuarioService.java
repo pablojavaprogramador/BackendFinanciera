@@ -10,7 +10,7 @@ import com.mibolsillo.model.User;
 public interface UsuarioService {
 
 
-	com.google.common.base.Optional<User> findById(Long id);
+	Optional<User> findById(Long id);
 
 	RespuestaOk save(User referencia);
 

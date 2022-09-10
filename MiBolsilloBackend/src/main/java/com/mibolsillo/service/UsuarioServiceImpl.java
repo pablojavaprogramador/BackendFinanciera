@@ -25,10 +25,11 @@ public  class  UsuarioServiceImpl implements UsuarioService {
 	private AuthorityRepository authorityRepository;
 	
 	@Override
-	public com.google.common.base.Optional<User> findById(Long id) {
-		repositorioUser.findById(id);
-		return null;
+	public Optional<User> findById(Long id) {
+		Optional<User> usuario=repositorioUser.findById(id);
+		return usuario;
 	}
+	
 
 	@Override
 	public RespuestaOk save(User referencia) {
@@ -174,6 +175,7 @@ public  class  UsuarioServiceImpl implements UsuarioService {
 		}
 		return false;
 	}
+
 
 
 }
