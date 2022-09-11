@@ -45,8 +45,8 @@ public class DomicilioController {
 	}
 	
 	
-	// @RequestMapping(value = "/domicilios/{id}", method = RequestMethod.GET)
-	@GetMapping("/domicilios/{id}")
+	 @RequestMapping(value = "/domicilios/{id}", method = RequestMethod.GET)
+	//@GetMapping("/domicilios/{id}")
 	ResponseEntity<Domicilio> consultarDomicilio(@PathVariable Long id) throws ModeloNotFoundException {
 	
 	
